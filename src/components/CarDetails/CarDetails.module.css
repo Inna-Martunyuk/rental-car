@@ -1,0 +1,93 @@
+.div {
+    display: flex;
+    flex-direction: row;
+    gap:72px;
+  padding: 84px 120px;
+}
+.image {
+  border-radius: 19px;
+  width: 640px;
+  height: 512px;
+  margin-bottom: 40px;
+}
+
+.rentalForm {
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  padding: 32px;
+  width: 640px;
+  height: 488px;
+  text-align: start;
+}
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: #101828;
+  margin-bottom: 8px;
+}
+.text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: #8d929a;
+  margin-bottom: 24px;
+}
+.input {
+  border-radius: 12px;
+  border: none;
+  padding: 12px 20px;
+  width: 576px;
+  height: 48px;
+  background-color: #f7f7f7;
+  margin-bottom: 16px;
+}
+.textarea {
+  border-radius: 12px;
+  padding: 12px 20px 56px 20px;
+  width: 576px;
+  height: 88px;
+  background-color: #f7f7f7;
+  border: none;
+  margin-bottom: 24px;
+}
+.button {
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
+  background-color: #3470ff;
+  display: block;
+  margin: auto;
+font-weight: 600;
+font-size: 16px;
+line-height: 125%;
+color: #fff;
+}
+.button:hover {
+  background-color: #0b44cd;
+}
+.params {
+
+}
+.model {
+font-weight: 600;
+font-size: 24px;
+line-height: 133%;
+text-align: center;
+color:  #101828;
+text-align: start;
+
+}
+.id {
+font-weight: 500;
+font-size: 16px;
+line-height: 125%;
+color:  #8d929a;
+}
+.idTitle {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+}

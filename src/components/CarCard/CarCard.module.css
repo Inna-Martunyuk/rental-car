@@ -1,0 +1,73 @@
+
+.card {
+width: 276px;
+height: auto;
+}
+.img {
+ width: 276px;
+  height: 268px;
+  border-radius: 14px;
+  display: block; 
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+.title {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin-bottom: 8px;
+}
+.model {
+color: #3470ff;
+}
+.brand {
+font-weight: 500;
+font-size: 16px;
+line-height: 125%;
+color:  #101828;
+}
+.info {
+display: flex;
+justify-content: flex-start;
+gap: 12px; 
+align-items: center;
+font-weight: 400;
+font-size: 12px;
+line-height: 133%;
+color: #8d929a;
+margin-bottom: 4px;
+}
+.suv {
+font-weight: 400;
+font-size: 12px;
+line-height: 133%;
+color: #8d929a;
+margin-bottom: 28px;
+display: block;
+text-align: start;
+}
+.info span:not(:last-child)::after {
+  content: "|";
+  margin-left: 6px;
+  color:  #dadde1;
+  font-size: 16px;       
+  line-height: 1px;  
+}
+
+.readMore {
+  display: block;
+  width: 100%;
+  max-width: 276px;
+  height: 44px;
+  background-color: #3470ff;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 44px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 8px; 
+}
+

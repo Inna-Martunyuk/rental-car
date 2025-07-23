@@ -1,0 +1,12 @@
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  grid-template-rows: repeat(3, auto); 
+  gap: 28px; 
+  margin-bottom: 80px;    
+  margin-top: 56px;                  
+}
+ 
+
+

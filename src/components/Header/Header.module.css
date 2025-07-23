@@ -11,9 +11,8 @@ max-width: 100%;
 height: 68px;
 background-color:  #f2f4f7;
 margin-bottom: 4px;
-  /* position: fixed;
-  top: 0;
+  width: 100vw; /* 100% від ширини вікна браузера */
+  position: relative; /* або fixed, якщо треба */
   left: 0;
-  width: 100%;
-  z-index: 1000;  */
+  top: 0;
 }
