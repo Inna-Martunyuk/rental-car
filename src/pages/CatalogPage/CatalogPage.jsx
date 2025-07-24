@@ -9,7 +9,7 @@ import {
 import CarList from "../../components/CarList/CarList";
 import Filter from "../../components/Filter/Filter";
 import LoadMore from "../../components/LoadMore/LoadMore";
-import { setFilters } from "../../redux/filter/slice";
+import { setFilters } from "../../redux/filters/slice"; 
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -38,13 +38,12 @@ const CatalogPage = () => {
       )}
       {!hasMore && !isLoading && items.length > 0 && (
         <p style={{ textAlign: "center", marginTop: "20px", color: "#555" }}>
-          Car no longer found
+          No more cars found
         </p>
       )}
-
       {!isLoading && items.length === 0 && (
         <p style={{ textAlign: "center", marginTop: "20px", color: "#555" }}>
-          No cars according to current filters
+          No cars found with current filters
         </p>
       )}
     </div>

@@ -2,6 +2,12 @@
 .card {
 width: 276px;
 height: auto;
+ position: relative;
+}
+.imgContainer {
+  position: relative; 
+  width: 100%;
+  height: auto; 
 }
 .img {
  width: 276px;
@@ -11,6 +17,23 @@ height: auto;
   object-fit: cover;
   margin-bottom: 16px;
 }
+.favoriteButton {
+  position: absolute;
+  top: 16px; 
+  right: 16px; 
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.favoriteButton img {
+  width: 16px; 
+  height: 16px; 
+  fill: #f2f4f7;
+}
+
 .title {
 display: flex;
 flex-direction: row;

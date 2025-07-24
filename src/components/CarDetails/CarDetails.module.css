@@ -1,8 +1,8 @@
 .div {
-    display: flex;
-    flex-direction: row;
-    gap:72px;
-  padding: 84px 120px;
+  display: flex;
+  flex-direction: row;
+  gap: 72px;
+  padding-top: 84px;
 }
 .image {
   border-radius: 19px;
@@ -16,8 +16,9 @@
   border-radius: 10px;
   padding: 32px;
   width: 640px;
-  height: 488px;
+  height: auto;
   text-align: start;
+
 }
 .title {
   font-weight: 600;
@@ -50,6 +51,7 @@
   background-color: #f7f7f7;
   border: none;
   margin-bottom: 24px;
+  resize: none;
 }
 .button {
   border-radius: 12px;
@@ -59,35 +61,96 @@
   background-color: #3470ff;
   display: block;
   margin: auto;
-font-weight: 600;
-font-size: 16px;
-line-height: 125%;
-color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 125%;
+  color: #fff;
+
 }
 .button:hover {
   background-color: #0b44cd;
 }
-.params {
-
-}
 .model {
-font-weight: 600;
-font-size: 24px;
-line-height: 133%;
-text-align: center;
-color:  #101828;
-text-align: start;
-
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  text-align: center;
+  color: #101828;
+  text-align: start;
+  margin-right: 16px;
 }
 .id {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  color: #8d929a;
+}
+.idTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.imgGroup {
+  margin-top: 8px;
+  width: 16px;
+  height: 16px;
+  color: #101828;
+}
+.info {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  margin-bottom: 16px;
 font-weight: 500;
 font-size: 16px;
 line-height: 125%;
-color:  #8d929a;
+color:  #101828;
 }
-.idTitle {
+.mileage {
+  margin-left: 16px;
+}
+.price {
+text-align: start;
+font-weight: 600;
+font-size: 24px;
+line-height: 133%;
+color:  #3470ff;
+margin-bottom: 32px;
+}
+.text {
+font-weight: 500;
+font-size: 16px;
+line-height: 125%;
+color: #101828;
+width: 100%;
+text-align: justify; 
+margin-bottom: 68px;
+}
+.titleDetail {
+font-weight: 600;
+font-size: 20px;
+line-height: 120%;
+color: #101828;
+text-align: start;
+margin-bottom: 20px;
+}
+.list {
 display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
+gap: 16px;
+font-weight: 500;
+font-size: 16px;
+line-height: 125%;
+color: #101828;
+margin-bottom: 16px;
+}
+.icons {
+width: 16px;
+height: 16px;
+}
+.detailsCar {
+margin-bottom: 94px;
+}
+.detailsSpecification {
+margin-bottom: 94px;
 }

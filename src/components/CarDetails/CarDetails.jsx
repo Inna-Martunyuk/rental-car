@@ -1,12 +1,16 @@
 import { useState } from "react";
 import css from "./CarDetails.module.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import groupImage from "../../assets/group.png";
 
 const CarDetails = ({ car, onSubmitRental }) => {
   const [rentalData, setRentalData] = useState({
-    startDate: "",
-    endDate: "",
+    startDate: null,
+    endDate: null,
     contactName: "",
     contactPhone: "",
+    comment: "",
   });
 
   const handleChange = (e) => {
@@ -16,11 +20,28 @@ const CarDetails = ({ car, onSubmitRental }) => {
     });
   };
 
+  const handleDateChange = (date, field) => {
+    setRentalData({
+      ...rentalData,
+      [field]: date,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmitRental(rentalData);
   };
-const numericId = car.id.match(/\d+/g)?.join("").slice(0, 4) || "0000";
+
+  const numericId = car.id.match(/\d+/g)?.join("").slice(0, 4) || "0000";
+  const addressParts = car.address.split(",").map((part) => part.trim());
+  const city = addressParts[addressParts.length - 2];
+  const country = addressParts[addressParts.length - 1];
+  const rentalConditions = car.rentalConditions || [
+    "Minimum age: 21",
+    "Valid driver's license",
+    "Proof of insurance required",
+  ];
+
   return (
     <div className={`${css.container} ${css.div}`}>
       <div className={css.details}>
@@ -52,18 +73,17 @@ const numericId = car.id.match(/\d+/g)?.join("").slice(0, 4) || "0000";
               value={rentalData.contactPhone}
               onChange={handleChange}
               required
-              placeholder="Email*"
+              placeholder="Phone*"
               className={css.input}
             />
           </label>
           <label>
-            <input
-              type="text"
-              name="startDate"
-              value={rentalData.startDate}
-              onChange={handleChange}
-              placeholder="Booking date"
+            <DatePicker
+              selected={rentalData.startDate}
+              onChange={(date) => handleDateChange(date, "startDate")}
+              placeholderText="Booking date"
               className={css.input}
+              dateFormat="yyyy-MM-dd"
               required
             />
           </label>
@@ -83,63 +103,82 @@ const numericId = car.id.match(/\d+/g)?.join("").slice(0, 4) || "0000";
           </button>
         </form>
       </div>
-
       <div className={css.params}>
         <div className={css.idTitle}>
           <h2 className={css.model}>
-          {car.brand} {car.model}, {car.year}
-        </h2>
-          <p className={css.id} >id: {numericId}</p>
+            {car.brand} {car.model}, {car.year}
+          </h2>
+          <p className={css.id}>id: {numericId}</p>
         </div>
-        
 
-        <div className={css.details}>
-          <p>
-            <strong>Тип:</strong> {car.type}
-          </p>
-          <p>
-            <strong>Паливна ефективність:</strong> {car.fuelConsumption} л/100км
-          </p>
-          <p>
-            <strong>Об’єм двигуна:</strong> {car.engineSize}
-          </p>
-          <p>
-            <strong>Пробіг:</strong> {car.mileage} км
-          </p>
-          <p>
-            <strong>Ціна оренди за годину:</strong> ${car.rentalPrice}
-          </p>
-          <p>
-            <strong>Компанія оренди:</strong> {car.rentalCompany}
-          </p>
-          <p>
-            <strong>Адреса:</strong> {car.address}
-          </p>
-
-          <p>
-            <strong>Аксесуари:</strong>
-          </p>
+        <div className={css.info}>
+          <img className={css.imgGroup} src={groupImage} alt="group" />
+          <p>{city},</p>
+          <p>{country}</p>
+          <p className={css.mileage}> Mileage: {car.mileage} km</p>
+        </div>
+        <p className={css.price}>${car.rentalPrice}</p>
+        <p className={css.text}>{car.description}</p>
+        <div className={css.detailsCar}>
+          <h3 className={css.titleDetail}>Rental Conditions:</h3>
           <ul>
-            {car.accessories.map((acc, idx) => (
-              <li key={idx}>{acc}</li>
+            {rentalConditions.map((condition, index) => (
+              <li className={css.list} key={index}>
+                <img
+                  className={css.icons}
+                  src="/src/assets/check-circle.png"
+                  alt="check"
+                />
+                <p>{condition}</p>
+              </li>
             ))}
           </ul>
-
-          <p>
-            <strong>Функції:</strong>
-          </p>
+        </div>
+        <div className={css.detailsSpecification}>
+          <h3 className={css.titleDetail}>Car Specifications:</h3>
           <ul>
-            {car.functionalities.map((func, idx) => (
-              <li key={idx}>{func}</li>
-            ))}
+            <li className={css.list}>
+              <img
+                className={css.icons}
+                src="/src/assets/calendar.png"
+                alt="calendar"
+              />
+              <p>Year: {car.year}</p>
+            </li>
+            <li className={css.list}>
+              <img className={css.icons} src="/src/assets/car.png" alt="car" />
+              <p>Type: {car.type} </p>
+            </li>
+            <li className={css.list}>
+              <img
+                className={css.icons}
+                src="/src/assets/fuel-pump.png"
+                alt="fuel-pump"
+              />
+              <p>Fuel Consumption: {car.fuelConsumption}</p>
+            </li>
+            <li className={css.list}>
+              <img
+                className={css.icons}
+                src="/src/assets/gear.png"
+                alt="gear"
+              />
+              <p>Engine Size: {car.engineSize}</p>
+            </li>
           </ul>
-
-          <p>
-            <strong>Умови оренди:</strong>
-          </p>
+        </div>
+        <div className={css.detailsCar}>
+          <h3 className={css.titleDetail}>Accessories and Functionalities:</h3>
           <ul>
-            {car.rentalConditions.map((cond, idx) => (
-              <li key={idx}>{cond}</li>
+            {[...car.accessories, ...car.functionalities].map((item, index) => (
+              <li className={css.list} key={index}>
+                <img
+                  className={css.icons}
+                  src="/src/assets/check-circle.png"
+                  alt="check"
+                />
+                <p>{item}</p>
+              </li>
             ))}
           </ul>
         </div>

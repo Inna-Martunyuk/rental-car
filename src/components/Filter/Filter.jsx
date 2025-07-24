@@ -1,28 +1,35 @@
-import { useState } from "react";
-import css from "./Filter.module.css";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCarBrands, setFilters } from "../../redux/filters/slice"; // Імпортуємо асинхронний запит
+import css from "./Filter.module.css"; // Імпортуємо стилі
 
-function Filter({ onFilter }) {
-  const [brand, setBrand] = useState("");
-  const [pricePerHour, setPricePerHour] = useState("");
-  const [mileageFrom, setMileageFrom] = useState("");
-  const [mileageTo, setMileageTo] = useState("");
+const Filter = ({ onFilter }) => {
+  const dispatch = useDispatch();
+  const { brands, brand, priceFrom, priceTo, mileage } = useSelector(
+    (state) => state.filters
+  ); // Отримуємо список брендів з Redux
+
+  // Ініціалізація локальних стейтів
+  const [localBrand, setLocalBrand] = useState(brand); // Локальний стан для фільтра бренду
+  const [localPriceFrom, setLocalPriceFrom] = useState(priceFrom || ""); // Локальний стан для priceFrom
+  const [localPriceTo, setLocalPriceTo] = useState(priceTo || ""); // Локальний стан для priceTo
+  const [localMileageFrom, setLocalMileageFrom] = useState(mileage?.from || ""); // Локальний стан для mileageFrom
+  const [localMileageTo, setLocalMileageTo] = useState(mileage?.to || ""); // Локальний стан для mileageTo
+
+  useEffect(() => {
+    dispatch(fetchCarBrands()); // Завантажуємо бренди при монтуванні компонента
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Передача фільтрів, включаючи mileage
     onFilter({
-      brand,
-      pricePerHour: Number(pricePerHour),
-      mileageFrom: Number(mileageFrom),
-      mileageTo: Number(mileageTo),
+      brand: localBrand,
+      priceFrom: localPriceFrom ? Number(localPriceFrom) : null,
+      priceTo: localPriceTo ? Number(localPriceTo) : null,
+      mileageFrom: localMileageFrom ? Number(localMileageFrom) : null,
+      mileageTo: localMileageTo ? Number(localMileageTo) : null,
     });
-  };
-
-  const handleReset = () => {
-    setBrand("");
-    setPricePerHour("");
-    setMileageFrom("");
-    setMileageTo("");
-    onFilter({}); // опційно скидає фільтр
   };
 
   return (
@@ -31,37 +38,37 @@ function Filter({ onFilter }) {
         <label className={css.label}>
           Car brand:
           <select
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
+            value={localBrand}
+            onChange={(e) => setLocalBrand(e.target.value)}
             className={css.select}
           >
             <option value="">Choose a brand</option>
-            <option value="Aston Martin">Aston Martin</option>
-            <option value="Audi">Audi</option>
-            <option value="BMW">BMW</option>
-            <option value="Bentley">Bentley</option>
-            <option value="Buick">Buick</option>
-            <option value="Chevrolet">Chevrolet</option>
-            <option value="Chrysler">Chrysler</option>
-            <option value="GMC">GMC</option>
-            <option value="Hammer">Hammer</option>
+            {brands.length === 0 ? (
+              <option value="">Loading brands...</option>
+            ) : (
+              brands.map((brand) => (
+                <option key={brand} className={css.option} value={brand}>
+                  {brand}
+                </option>
+              ))
+            )}
           </select>
         </label>
 
         <label className={css.label}>
           Price / 1 hour:
           <select
-            value={pricePerHour}
-            onChange={(e) => setPricePerHour(e.target.value)}
+            value={localPriceFrom}
+            onChange={(e) => setLocalPriceFrom(e.target.value)}
             className={css.select}
           >
             <option value="">Choose price</option>
-            <option value="30">30$</option>
-            <option value="40">40$</option>
-            <option value="50">50$</option>
-            <option value="60">60$</option>
-            <option value="70">70$</option>
-            <option value="80">80$</option>
+            <option className={css.option} value="30">30$</option>
+            <option className={css.option} value="40">40$</option>
+            <option className={css.option} value="50">50$</option>
+            <option className={css.option} value="60">60$</option>
+            <option className={css.option} value="70">70$</option>
+            <option className={css.option} value="80">80$</option>
           </select>
         </label>
 
@@ -72,16 +79,16 @@ function Filter({ onFilter }) {
               className={css.inputAfter}
               type="number"
               placeholder="From"
-              value={mileageFrom}
-              onChange={(e) => setMileageFrom(e.target.value)}
+              value={localMileageFrom}
+              onChange={(e) => setLocalMileageFrom(e.target.value)}
             />
             <div className={css.separator}></div>
             <input
               className={css.inputBeffore}
               type="number"
               placeholder="To"
-              value={mileageTo}
-              onChange={(e) => setMileageTo(e.target.value)}
+              value={localMileageTo}
+              onChange={(e) => setLocalMileageTo(e.target.value)}
             />
           </div>
         </label>
@@ -94,6 +101,6 @@ function Filter({ onFilter }) {
       </div>
     </form>
   );
-}
+};
 
 export default Filter;
