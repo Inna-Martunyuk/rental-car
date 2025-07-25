@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+const loadFavoritesFromLocalStorage = () => {
+  const storedFavorites = localStorage.getItem("favorites");
+  return storedFavorites ? JSON.parse(storedFavorites) : [];
+};
+
 const initialState = {
-  items: [], // масив улюблених автомобілів
+  items: loadFavoritesFromLocalStorage(), 
 };
 
 const favoritesSlice = createSlice({
@@ -15,12 +21,15 @@ const favoritesSlice = createSlice({
       );
 
       if (isAlreadyFavorite) {
-        // Якщо автомобіль вже в улюблених, видаляємо його
+       
         state.items = state.items.filter((favorite) => favorite.id !== car.id);
       } else {
-        // Якщо автомобіль ще не в улюблених, додаємо його
+       
         state.items.push(car);
       }
+
+     
+      localStorage.setItem("favorites", JSON.stringify(state.items));
     },
   },
 });

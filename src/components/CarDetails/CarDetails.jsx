@@ -41,7 +41,9 @@ const CarDetails = ({ car, onSubmitRental }) => {
     "Valid driver's license",
     "Proof of insurance required",
   ];
-
+const formatMileage = (mileage) => {
+  return new Intl.NumberFormat("uk-UA").format(mileage); 
+};
   return (
     <div className={`${css.container} ${css.div}`}>
       <div className={css.details}>
@@ -115,7 +117,10 @@ const CarDetails = ({ car, onSubmitRental }) => {
           <img className={css.imgGroup} src={groupImage} alt="group" />
           <p>{city},</p>
           <p>{country}</p>
-          <p className={css.mileage}> Mileage: {car.mileage} km</p>
+          <p className={css.mileage}>
+            {" "}
+            Mileage: {formatMileage(car.mileage)} km
+          </p>
         </div>
         <p className={css.price}>${car.rentalPrice}</p>
         <p className={css.text}>{car.description}</p>

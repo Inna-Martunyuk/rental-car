@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchCarsAPI } from "../../services/api";
 
-
+// Асинхронне завантаження автомобілів з фільтрами та пагінацією
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
   async ({ filters, page = 1, limit = 12 }, thunkAPI) => {
     try {
       const response = await fetchCarsAPI({ filters, page, limit });
-      return response; 
+      return response;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message); 
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -54,7 +54,7 @@ const carsSlice = createSlice({
           // Додаємо нові елементи до існуючих
           state.items = [...state.items, ...action.payload.cars];
         }
-        // Якщо дані є, оновлюємо totalPages
+        // Оновлюємо totalPages
         state.totalPages = action.payload.totalPages;
         // Якщо поточна сторінка менша за загальну кількість сторінок, дозволяємо подальше завантаження
         state.hasMore = state.page < state.totalPages;

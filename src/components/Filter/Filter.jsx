@@ -1,35 +1,34 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCarBrands, setFilters } from "../../redux/filters/slice"; // Імпортуємо асинхронний запит
-import css from "./Filter.module.css"; // Імпортуємо стилі
+import { fetchCarBrands } from "../../redux/filters/slice"; 
+import css from "./Filter.module.css"; 
 
 const Filter = ({ onFilter }) => {
   const dispatch = useDispatch();
-  const { brands, brand, priceFrom, priceTo, mileage } = useSelector(
+  const { brands, brand, priceFrom,  mileage } = useSelector(
     (state) => state.filters
-  ); // Отримуємо список брендів з Redux
-
-  // Ініціалізація локальних стейтів
-  const [localBrand, setLocalBrand] = useState(brand); // Локальний стан для фільтра бренду
-  const [localPriceFrom, setLocalPriceFrom] = useState(priceFrom || ""); // Локальний стан для priceFrom
-  const [localPriceTo, setLocalPriceTo] = useState(priceTo || ""); // Локальний стан для priceTo
-  const [localMileageFrom, setLocalMileageFrom] = useState(mileage?.from || ""); // Локальний стан для mileageFrom
-  const [localMileageTo, setLocalMileageTo] = useState(mileage?.to || ""); // Локальний стан для mileageTo
+  ); 
+  const [localBrand, setLocalBrand] = useState(brand); 
+  const [localPriceFrom, setLocalPriceFrom] = useState(priceFrom || ""); 
+  const [localMileageFrom, setLocalMileageFrom] = useState(mileage?.from || ""); 
+  const [localMileageTo, setLocalMileageTo] = useState(mileage?.to || ""); 
 
   useEffect(() => {
-    dispatch(fetchCarBrands()); // Завантажуємо бренди при монтуванні компонента
+    dispatch(fetchCarBrands()); 
   }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Передача фільтрів, включаючи mileage
-    onFilter({
+
+ 
+    const filters = {
       brand: localBrand,
-      priceFrom: localPriceFrom ? Number(localPriceFrom) : null,
-      priceTo: localPriceTo ? Number(localPriceTo) : null,
-      mileageFrom: localMileageFrom ? Number(localMileageFrom) : null,
-      mileageTo: localMileageTo ? Number(localMileageTo) : null,
-    });
+      rentalPrice: localPriceFrom ? String(localPriceFrom) : null, 
+      minMileage: localMileageFrom ? String(localMileageFrom) : null, 
+      maxMileage: localMileageTo ? String(localMileageTo) : null, 
+    };
+
+    onFilter(filters);
   };
 
   return (
@@ -44,7 +43,7 @@ const Filter = ({ onFilter }) => {
           >
             <option value="">Choose a brand</option>
             {brands.length === 0 ? (
-              <option value="">Loading brands...</option>
+              <option value="">Loading brands...</option> 
             ) : (
               brands.map((brand) => (
                 <option key={brand} className={css.option} value={brand}>
@@ -63,12 +62,24 @@ const Filter = ({ onFilter }) => {
             className={css.select}
           >
             <option value="">Choose price</option>
-            <option className={css.option} value="30">30$</option>
-            <option className={css.option} value="40">40$</option>
-            <option className={css.option} value="50">50$</option>
-            <option className={css.option} value="60">60$</option>
-            <option className={css.option} value="70">70$</option>
-            <option className={css.option} value="80">80$</option>
+            <option className={css.option} value="30">
+              30$
+            </option>
+            <option className={css.option} value="40">
+              40$
+            </option>
+            <option className={css.option} value="50">
+              50$
+            </option>
+            <option className={css.option} value="60">
+              60$
+            </option>
+            <option className={css.option} value="70">
+              70$
+            </option>
+            <option className={css.option} value="80">
+              80$
+            </option>
           </select>
         </label>
 

@@ -4,6 +4,9 @@ import { toggleFavorite } from "../../redux/favorites/slice";
 import css from "./CarCard.module.css";
 import Property from "../../assets/Property.png";
 import PropertyActive from "../../assets/Property 1=Active.png";
+const formatMileage = (mileage) => {
+  return new Intl.NumberFormat("uk-UA").format(mileage); 
+};
 
 const CarCard = ({ car }) => {
   const dispatch = useDispatch();
@@ -21,16 +24,16 @@ const CarCard = ({ car }) => {
   return (
     <div className={css.card}>
       <div className={css.imgContainer}>
-      <img className={css.img} src={car.img} alt={car.make} />
-      <button
-        onClick={handleFavoriteClick}
-        className={`${css.favoriteButton} ${isFavorite ? css.favorited : ""}`}
-      >
-        {isFavorite ? (
-          <img src={PropertyActive} alt="Favorite" />
-        ) : (
-          <img src={Property} alt="Not Favorite" />
-        )}
+        <img className={css.img} src={car.img} alt={car.make} />
+        <button
+          onClick={handleFavoriteClick}
+          className={`${css.favoriteButton} ${isFavorite ? css.favorited : ""}`}
+        >
+          {isFavorite ? (
+            <img src={PropertyActive} alt="Favorite" />
+          ) : (
+            <img src={Property} alt="Not Favorite" />
+          )}
         </button>
       </div>
       <div className={css.title}>
@@ -44,7 +47,7 @@ const CarCard = ({ car }) => {
         <span>{country}</span>
         <span>{car.rentalCompany}</span>
       </div>
-      <span className={css.suv}> Suv {car.mileage}</span>
+      <span className={css.suv}> Suv {formatMileage(car.mileage)}</span>
       <NavLink className={css.readMore} to={`/catalog/${car.id}`}>
         Read more
       </NavLink>

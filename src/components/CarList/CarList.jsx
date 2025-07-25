@@ -1,7 +1,13 @@
+import React from "react";
 import css from "./CarList.module.css";
 import CarCard from "../CarCard/CarCard";
 
 export default function CarList({ cars = [] }) {
+  // Якщо список порожній, відображаємо повідомлення
+  if (cars.length === 0) {
+    return <p>No cars available</p>;
+  }
+
   return (
     <ul className={css.list}>
       {cars.map((car) => (
