@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchCars } from "../../redux/cars/opetations.js";
 import {
-  fetchCars,
   incrementPage,
   resetCars,
   setPage,

@@ -3,8 +3,13 @@ import css from "./CarDetails.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import groupImage from "../../assets/group.png";
+import { toast } from "react-toastify"; 
+import { useDispatch } from "react-redux";
+import { bookCar } from "../../redux/operations/operations.js"; 
 
-const CarDetails = ({ car, onSubmitRental }) => {
+const CarDetails = ({ car }) => {
+  const dispatch = useDispatch();
+
   const [rentalData, setRentalData] = useState({
     startDate: null,
     endDate: null,
@@ -27,9 +32,22 @@ const CarDetails = ({ car, onSubmitRental }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmitRental(rentalData);
+    try {
+      
+      await dispatch(bookCar(rentalData));
+      toast.success("Your booking has been successfully made!"); 
+      setRentalData({
+        startDate: null,
+        endDate: null,
+        contactName: "",
+        contactPhone: "",
+        comment: "",
+      }); 
+    } catch (error) {
+      toast.error("An error occurred while making the reservation!"); 
+    }
   };
 
   const numericId = car.id.match(/\d+/g)?.join("").slice(0, 4) || "0000";
@@ -41,9 +59,11 @@ const CarDetails = ({ car, onSubmitRental }) => {
     "Valid driver's license",
     "Proof of insurance required",
   ];
-const formatMileage = (mileage) => {
-  return new Intl.NumberFormat("uk-UA").format(mileage); 
-};
+
+  const formatMileage = (mileage) => {
+    return new Intl.NumberFormat("uk-UA").format(mileage);
+  };
+
   return (
     <div className={`${css.container} ${css.div}`}>
       <div className={css.details}>

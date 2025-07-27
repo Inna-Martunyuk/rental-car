@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const loadFavoritesFromLocalStorage = () => {
   const storedFavorites = localStorage.getItem("favorites");
   return storedFavorites ? JSON.parse(storedFavorites) : [];
+};
+
+const saveFavoritesToLocalStorage = (favorites) => {
+  localStorage.setItem("favorites", JSON.stringify(favorites));
 };
 
 const initialState = {
@@ -21,15 +24,12 @@ const favoritesSlice = createSlice({
       );
 
       if (isAlreadyFavorite) {
-       
         state.items = state.items.filter((favorite) => favorite.id !== car.id);
       } else {
-       
         state.items.push(car);
       }
 
-     
-      localStorage.setItem("favorites", JSON.stringify(state.items));
+      saveFavoritesToLocalStorage(state.items);
     },
   },
 });

@@ -1,40 +1,30 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchCarsAPI } from "../../services/api";
-
-// Асинхронне завантаження автомобілів з фільтрами та пагінацією
-export const fetchCars = createAsyncThunk(
-  "cars/fetchCars",
-  async ({ filters, page = 1, limit = 12 }, thunkAPI) => {
-    try {
-      const response = await fetchCarsAPI({ filters, page, limit });
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchCars } from "./opetations.js"; 
 
 const carsSlice = createSlice({
   name: "cars",
   initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-    page: 1,
+    items: [], 
+    isLoading: false, 
+    error: null, 
+    page: 1, 
     limit: 12,
-    totalPages: 0,
-    hasMore: true,
+    totalPages: 0, 
+    hasMore: true, 
   },
   reducers: {
+    
     resetCars(state) {
       state.items = [];
       state.page = 1;
       state.hasMore = true;
       state.error = null;
     },
+    
     setPage(state, action) {
       state.page = action.payload;
     },
+   
     incrementPage(state) {
       state.page += 1;
     },
@@ -47,21 +37,20 @@ const carsSlice = createSlice({
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
         state.isLoading = false;
-        // Якщо сторінка 1 — замінити, інакше додати
+       
         if (state.page === 1) {
           state.items = action.payload.cars;
         } else {
-          // Додаємо нові елементи до існуючих
           state.items = [...state.items, ...action.payload.cars];
         }
-        // Оновлюємо totalPages
+        
         state.totalPages = action.payload.totalPages;
-        // Якщо поточна сторінка менша за загальну кількість сторінок, дозволяємо подальше завантаження
+        
         state.hasMore = state.page < state.totalPages;
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload; 
       });
   },
 });

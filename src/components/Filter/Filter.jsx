@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCarBrands } from "../../redux/filters/slice"; 
+import { fetchCarBrands } from "../../redux/filters/operations.js"; 
 import css from "./Filter.module.css"; 
 
 const Filter = ({ onFilter }) => {
