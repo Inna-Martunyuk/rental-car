@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../redux/favorites/slice";
 import css from "./CarCard.module.css";
 import Property from "../../../public/assets/Property.png";
-import PropertyActive from "../../../public/Property 1=Active.png";
+import PropertyActive from "../../../public/assets/Property 1=Active.png";
 const formatMileage = (mileage) => {
   return new Intl.NumberFormat("uk-UA").format(mileage); 
 };
