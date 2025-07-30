@@ -2,7 +2,7 @@ import { useState } from "react";
 import css from "./CarDetails.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import groupImage from "../../assets/group.png";
+import groupImage from "../../../public/assets/group.png";
 import { toast } from "react-toastify"; 
 import { useDispatch } from "react-redux";
 import { bookCar } from "../../redux/operations/operations.js"; 
