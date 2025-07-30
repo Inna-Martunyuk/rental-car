@@ -17,6 +17,7 @@ function NavMenu() {
         <li className={css.item}>
           <NavLink
             to="/catalog"
+            end
             className={({ isActive }) => (isActive ? css.activeLink : css.link)}
           >
             Catalog

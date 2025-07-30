@@ -3,9 +3,10 @@ import css from "./CarDetails.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import groupImage from "../../../public/assets/group.png";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { bookCar } from "../../redux/operations/operations.js"; 
+import { bookCar } from "../../redux/operations/operations.js";
+import { formatNumberWithCommas } from "../../utils/format";
 
 const CarDetails = ({ car }) => {
   const dispatch = useDispatch();
@@ -35,18 +36,17 @@ const CarDetails = ({ car }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
       await dispatch(bookCar(rentalData));
-      toast.success("Your booking has been successfully made!"); 
+      toast.success("Your booking has been successfully made!");
       setRentalData({
         startDate: null,
         endDate: null,
         contactName: "",
         contactPhone: "",
         comment: "",
-      }); 
+      });
     } catch (error) {
-      toast.error("An error occurred while making the reservation!"); 
+      toast.error("An error occurred while making the reservation!");
     }
   };
 
@@ -60,9 +60,8 @@ const CarDetails = ({ car }) => {
     "Proof of insurance required",
   ];
 
-  const formatMileage = (mileage) => {
-    return new Intl.NumberFormat("uk-UA").format(mileage);
-  };
+
+  const formattedMileage = formatNumberWithCommas(car.mileage);
 
   return (
     <div className={`${css.container} ${css.div}`}>
@@ -138,8 +137,7 @@ const CarDetails = ({ car }) => {
           <p>{city},</p>
           <p>{country}</p>
           <p className={css.mileage}>
-            {" "}
-            Mileage: {formatMileage(car.mileage)} km
+            Mileage: {formattedMileage} km
           </p>
         </div>
         <p className={css.price}>${car.rentalPrice}</p>
@@ -171,11 +169,7 @@ const CarDetails = ({ car }) => {
               <p>Year: {car.year}</p>
             </li>
             <li className={css.list}>
-              <img
-                className={css.icons}
-                src="/assets/car.png"
-                alt="car"
-              />
+              <img className={css.icons} src="/assets/car.png" alt="car" />
               <p>Type: {car.type} </p>
             </li>
             <li className={css.list}>
@@ -187,28 +181,9 @@ const CarDetails = ({ car }) => {
               <p>Fuel Consumption: {car.fuelConsumption}</p>
             </li>
             <li className={css.list}>
-              <img
-                className={css.icons}
-                src="/assets/gear.png"
-                alt="gear"
-              />
+              <img className={css.icons} src="/assets/gear.png" alt="gear" />
               <p>Engine Size: {car.engineSize}</p>
             </li>
-          </ul>
-        </div>
-        <div className={css.detailsCar}>
-          <h3 className={css.titleDetail}>Accessories and Functionalities:</h3>
-          <ul>
-            {[...car.accessories, ...car.functionalities].map((item, index) => (
-              <li className={css.list} key={index}>
-                <img
-                  className={css.icons}
-                  src="/assets/check-circle.png"
-                  alt="check"
-                />
-                <p>{item}</p>
-              </li>
-            ))}
           </ul>
         </div>
       </div>

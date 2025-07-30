@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CarDetails from "../../components/CarDetails/CarDetails";
+import Loader from "../../components/Loader/Loader";
 
 const CarDetailsPage = () => {
- const { id } = useParams();
+  const { id } = useParams();
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,24 +17,29 @@ const CarDetailsPage = () => {
     axios
       .get(`https://car-rental-api.goit.global/cars/${id}`)
       .then((res) => {
-        setCar(res.data);
+        if (res.data) {
+          setCar(res.data);
+        } else {
+          setError("Car not found");
+        }
         setLoading(false);
       })
-      .catch(() => {
-        setError("Car not found");
+      .catch((err) => {
+        console.error(err); 
+        setError("Error fetching car data");
         setLoading(false);
       });
   }, [id]);
 
   const handleRentalSubmit = (rentalData) => {
     alert(
-      `Оренда авто з ${rentalData.startDate} по ${rentalData.endDate} для ${rentalData.contactName}`
+      `Rent a car from ${rentalData.startDate} to ${rentalData.endDate} for ${rentalData.contactName}`
     );
   };
 
-  if (loading) return <p>Завантаження...</p>;
-  if (error) return <p>{error}</p>;
-  if (!car) return null;
+  if (loading) return <Loader />;
+  if (error) return <div className="error-message">{error}</div>; 
+  if (!car) return <div>Car not found</div>; 
 
   return <CarDetails car={car} onSubmitRental={handleRentalSubmit} />;
 };

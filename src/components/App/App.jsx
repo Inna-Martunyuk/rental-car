@@ -7,7 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import NotFound from "../../components/NotFound/NotFound.jsx";
 
 
-const HomePage = lazy(() => import("../../pages/HomePage/HomePage.jsx"));
+const HomePage = lazy(() =>  import("../../pages/HomePage/HomePage.jsx"));
 const CatalogPage = lazy(() => import("../../pages/CatalogPage/CatalogPage.jsx"));
 const CarDetailsPage = lazy(() => import("../../pages/CarDetailsPage/CarDetailsPage.jsx"));
 

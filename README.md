@@ -1,22 +1,21 @@
 # RentalCar - Web Application
 
-**RentalCar** — це веб-додаток для оренди автомобілів, що дозволяє користувачам переглядати доступні транспортні засоби, фільтрувати їх за різними параметрами та орендувати через зручну форму.
+**RentalCar** — a web application for car rentals that allows users to view available vehicles, filter them by various parameters, and rent them through a convenient form.
 
-## Основні функції
+## Key Features
 
-- **Перегляд автомобілів:** Користувач може переглядати всі доступні автомобілі на сторінці каталогу.
-- **Фільтрація:** Можливість фільтрувати автомобілі за брендом, ціною та пробігом (фільтрація на бекенді).
-- **Обране:** Користувач може додавати автомобілі до списку обраних, і цей список зберігається при оновленні сторінки.
-- **Сторінка деталей автомобіля:** Перегляд детальної інформації про автомобіль з фотографіями та формою для оренди.
-- **Форма оренди:** Користувач може орендувати автомобіль через форму на сторінці окремого автомобіля. Успішна оренда супроводжується сповіщенням.
-- **Пагінація:** Пагінація на сторінці каталогу для завантаження додаткових автомобілів.
-- **Адаптивність:** Проєкт оптимізований для десктопної версії.
+- **Car Viewing:** Users can view all available cars on the catalog page.
+- **Filtering:** Ability to filter cars by brand, price, and mileage (filtering is done on the backend).
+- **Favorites:** Users can add cars to the favorites list, and this list persists upon page reload.
+- **Car Details Page:** View detailed information about a car, including photos and a rental form.
+- **Rental Form:** Users can rent a car through a form on the individual car page. Successful rentals trigger a notification.
+- **Pagination:** Pagination on the catalog page for loading additional cars.
+- **Responsiveness:** The project is optimized for desktop view.
 
-## Технології
+## Technologies
 
-- **React** — бібліотека для створення інтерфейсів користувача.
-- **Vite** — збірка проекту та сервер для розробки.
-- **Redux** — для управління станом додатку.
-- **Axios** — для виконання HTTP запитів до бекенду.
-- **CSS Modules** — для локальної стилізації компонентів.
-
+- **React** — A library for building user interfaces.
+- **Vite** — Project build tool and development server.
+- **Redux** — For managing the application state.
+- **Axios** — For making HTTP requests to the backend.
+- **CSS Modules** — For locally scoped styling of components.

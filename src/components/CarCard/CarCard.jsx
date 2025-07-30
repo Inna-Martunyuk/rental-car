@@ -2,11 +2,9 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../redux/favorites/slice";
 import css from "./CarCard.module.css";
-import Property from "../../../public/assets/Property.png";
-import PropertyActive from "../../../public/assets/Property 1=Active.png";
-const formatMileage = (mileage) => {
-  return new Intl.NumberFormat("uk-UA").format(mileage); 
-};
+import { formatNumberWithCommas } from "../../utils/format";
+import Property from "../../assets/Property.png"; 
+import PropertyActive from "../../assets/Property 1=Active.png"; 
 
 const CarCard = ({ car }) => {
   const dispatch = useDispatch();
@@ -47,7 +45,10 @@ const CarCard = ({ car }) => {
         <span>{country}</span>
         <span>{car.rentalCompany}</span>
       </div>
-      <span className={css.suv}> Suv {formatMileage(car.mileage)}</span>
+      <span className={css.suv}>
+        {" "}
+        Suv {formatNumberWithCommas(car.mileage)}
+      </span>
       <NavLink className={css.readMore} to={`/catalog/${car.id}`}>
         Read more
       </NavLink>
