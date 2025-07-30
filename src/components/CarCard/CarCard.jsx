@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../redux/favorites/slice";
 import css from "./CarCard.module.css";
 import { formatNumberWithCommas } from "../../utils/format";
-import Property from "../../assets/Property.png"; 
-import PropertyActive from "../../assets/Property 1=Active.png"; 
+import Property from "../../../assets/Property.png"; 
+import PropertyActive from "../../../assets/Property 1=Active.png"; 
 
 const CarCard = ({ car }) => {
   const dispatch = useDispatch();
