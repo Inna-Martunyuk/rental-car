@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../redux/favorites/slice";
 import css from "./CarCard.module.css";
 import { formatNumberWithCommas } from "../../utils/format";
-import Property from "../../../public/assets/Property.png"; 
-import PropertyActive from "../../../public/assets/Property 1=Active.png"; 
 
 const CarCard = ({ car }) => {
   const dispatch = useDispatch();
@@ -28,9 +26,9 @@ const CarCard = ({ car }) => {
           className={`${css.favoriteButton} ${isFavorite ? css.favorited : ""}`}
         >
           {isFavorite ? (
-            <img src={PropertyActive} alt="Favorite" />
+            <img src="/assets/Property 1=Active.png" alt="Favorite" />
           ) : (
-            <img src={Property} alt="Not Favorite" />
+            <img src="/assets/Property.png" alt="Not Favorite" />
           )}
         </button>
       </div>
