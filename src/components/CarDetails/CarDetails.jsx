@@ -151,7 +151,7 @@ const CarDetails = ({ car }) => {
               <li className={css.list} key={index}>
                 <img
                   className={css.icons}
-                  src="/src/assets/check-circle.png"
+                  src="/public/assets/check-circle.png"
                   alt="check"
                 />
                 <p>{condition}</p>
@@ -165,19 +165,23 @@ const CarDetails = ({ car }) => {
             <li className={css.list}>
               <img
                 className={css.icons}
-                src="/src/assets/calendar.png"
+                src="/public/assets/calendar.png"
                 alt="calendar"
               />
               <p>Year: {car.year}</p>
             </li>
             <li className={css.list}>
-              <img className={css.icons} src="/src/assets/car.png" alt="car" />
+              <img
+                className={css.icons}
+                src="/public/assets/car.png"
+                alt="car"
+              />
               <p>Type: {car.type} </p>
             </li>
             <li className={css.list}>
               <img
                 className={css.icons}
-                src="/src/assets/fuel-pump.png"
+                src="/public/assets/fuel-pump.png"
                 alt="fuel-pump"
               />
               <p>Fuel Consumption: {car.fuelConsumption}</p>
@@ -185,7 +189,7 @@ const CarDetails = ({ car }) => {
             <li className={css.list}>
               <img
                 className={css.icons}
-                src="/src/assets/gear.png"
+                src="/public/assets/gear.png"
                 alt="gear"
               />
               <p>Engine Size: {car.engineSize}</p>
@@ -199,7 +203,7 @@ const CarDetails = ({ car }) => {
               <li className={css.list} key={index}>
                 <img
                   className={css.icons}
-                  src="/src/assets/check-circle.png"
+                  src="/public/assets/check-circle.png"
                   alt="check"
                 />
                 <p>{item}</p>

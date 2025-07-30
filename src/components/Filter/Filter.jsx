@@ -1,31 +1,42 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCarBrands } from "../../redux/filters/operations.js"; 
-import css from "./Filter.module.css"; 
+import { fetchCarBrands } from "../../redux/filters/operations.js";
+import css from "./Filter.module.css";
 
 const Filter = ({ onFilter }) => {
   const dispatch = useDispatch();
-  const { brands, brand, priceFrom,  mileage } = useSelector(
+  const { brands, brand, priceFrom, mileage } = useSelector(
     (state) => state.filters
-  ); 
-  const [localBrand, setLocalBrand] = useState(brand); 
-  const [localPriceFrom, setLocalPriceFrom] = useState(priceFrom || ""); 
-  const [localMileageFrom, setLocalMileageFrom] = useState(mileage?.from || ""); 
-  const [localMileageTo, setLocalMileageTo] = useState(mileage?.to || ""); 
+  );
+  const [localBrand, setLocalBrand] = useState(brand);
+  const [localPriceFrom, setLocalPriceFrom] = useState(priceFrom || "");
+  const [localMileageFrom, setLocalMileageFrom] = useState(mileage?.from || "");
+  const [localMileageTo, setLocalMileageTo] = useState(mileage?.to || "");
+
+  const formatNumber = (value) => {
+    // Форматування числа з комами
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   useEffect(() => {
-    dispatch(fetchCarBrands()); 
+    dispatch(fetchCarBrands());
   }, [dispatch]);
+
+  // Обробка зміни пробігу
+  const handleMileageChange = (e, setState) => {
+    let value = e.target.value.replace(/[^0-9]/g, ""); // Очищаємо від нечислових символів
+    value = value ? formatNumber(value) : ""; // Форматуємо число з комами
+    setState(value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
- 
     const filters = {
-      brand: localBrand,
-      rentalPrice: localPriceFrom ? String(localPriceFrom) : null, 
-      minMileage: localMileageFrom ? String(localMileageFrom) : null, 
-      maxMileage: localMileageTo ? String(localMileageTo) : null, 
+      brand: localBrand || null,
+      rentalPrice: localPriceFrom || null,
+      minMileage: localMileageFrom ? localMileageFrom.replace(/,/g, "") : null, // Видаляємо коми перед відправкою
+      maxMileage: localMileageTo || null,
     };
 
     onFilter(filters);
@@ -43,7 +54,7 @@ const Filter = ({ onFilter }) => {
           >
             <option value="">Choose a brand</option>
             {brands.length === 0 ? (
-              <option value="">Loading brands...</option> 
+              <option value="">Loading brands...</option>
             ) : (
               brands.map((brand) => (
                 <option key={brand} className={css.option} value={brand}>
@@ -88,18 +99,18 @@ const Filter = ({ onFilter }) => {
           <div className={css.inline}>
             <input
               className={css.inputAfter}
-              type="number"
+              type="text"
               placeholder="From"
-              value={localMileageFrom}
-              onChange={(e) => setLocalMileageFrom(e.target.value)}
+              value={localMileageFrom ? `From ${localMileageFrom}` : "From"}
+              onChange={(e) => handleMileageChange(e, setLocalMileageFrom)}
             />
             <div className={css.separator}></div>
             <input
               className={css.inputBeffore}
-              type="number"
+              type="text"
               placeholder="To"
-              value={localMileageTo}
-              onChange={(e) => setLocalMileageTo(e.target.value)}
+              value={localMileageTo ? `To ${localMileageTo}` : "To"}
+              onChange={(e) => handleMileageChange(e, setLocalMileageTo)}
             />
           </div>
         </label>
