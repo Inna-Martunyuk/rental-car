@@ -44,7 +44,6 @@ const CarCard = ({ car }) => {
         <span>{car.rentalCompany}</span>
       </div>
       <span className={css.suv}>
-        {" "}
         Suv {formatNumberWithCommas(car.mileage)}
       </span>
       <NavLink className={css.readMore} to={`/catalog/${car.id}`}>

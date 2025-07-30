@@ -38,7 +38,7 @@ const CarDetailsPage = () => {
   };
 
   if (loading) return <Loader />;
-  if (error) return <div className="error-message">{error}</div>; 
+  if (error) return {error}; 
   if (!car) return <div>Car not found</div>; 
 
   return <CarDetails car={car} onSubmitRental={handleRentalSubmit} />;

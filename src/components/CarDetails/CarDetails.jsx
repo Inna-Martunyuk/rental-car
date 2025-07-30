@@ -60,8 +60,10 @@ const CarDetails = ({ car }) => {
     "Proof of insurance required",
   ];
 
-
   const formattedMileage = formatNumberWithCommas(car.mileage);
+
+  // Мінімальна дата для вибору
+  const today = new Date();
 
   return (
     <div className={`${css.container} ${css.div}`}>
@@ -102,10 +104,26 @@ const CarDetails = ({ car }) => {
             <DatePicker
               selected={rentalData.startDate}
               onChange={(date) => handleDateChange(date, "startDate")}
-              placeholderText="Booking date"
+              placeholderText="Start Date"
               className={css.input}
               dateFormat="yyyy-MM-dd"
-              required
+              minDate={today} // Заборона вибору минулих дат
+              selectsStart
+              startDate={rentalData.startDate}
+              endDate={rentalData.endDate}
+            />
+          </label>
+          <label>
+            <DatePicker
+              selected={rentalData.endDate}
+              onChange={(date) => handleDateChange(date, "endDate")}
+              placeholderText="End Date"
+              className={css.input}
+              dateFormat="yyyy-MM-dd"
+              minDate={rentalData.startDate || today} // Заборона вибору дат до стартової
+              selectsEnd
+              startDate={rentalData.startDate}
+              endDate={rentalData.endDate}
             />
           </label>
           <label>
@@ -116,7 +134,6 @@ const CarDetails = ({ car }) => {
               placeholder="Comment"
               className={css.textarea}
               rows={4}
-              required
             />
           </label>
           <button className={css.button} type="submit">
@@ -136,9 +153,7 @@ const CarDetails = ({ car }) => {
           <img className={css.imgGroup} src={groupImage} alt="group" />
           <p>{city},</p>
           <p>{country}</p>
-          <p className={css.mileage}>
-            Mileage: {formattedMileage} km
-          </p>
+          <p className={css.mileage}>Mileage: {formattedMileage} km</p>
         </div>
         <p className={css.price}>${car.rentalPrice}</p>
         <p className={css.text}>{car.description}</p>
@@ -184,6 +199,21 @@ const CarDetails = ({ car }) => {
               <img className={css.icons} src="/assets/gear.png" alt="gear" />
               <p>Engine Size: {car.engineSize}</p>
             </li>
+          </ul>
+        </div>
+        <div className={css.detailsCar}>
+          <h3 className={css.titleDetail}>Accessories and Functionalities:</h3>
+          <ul>
+            {[...car.accessories, ...car.functionalities].map((item, index) => (
+              <li className={css.list} key={index}>
+                <img
+                  className={css.icons}
+                  src="/assets/check-circle.png"
+                  alt="check"
+                />
+                <p>{item}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
